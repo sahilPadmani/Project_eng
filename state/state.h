@@ -3,6 +3,14 @@
 #include "../entity/player.cpp"
 #include "../source/graphicsettings.cpp"
 
+enum State_Type {
+    MAIN_MANU = 0,
+    GAME ,
+    EDITOR  ,
+    SETTING ,
+    NONE
+};
+
 class player;
 class graphicssettings;
 class state;
@@ -13,6 +21,8 @@ struct statedata{
     graphicssettings* gfsettings;
     std::map<std::string,int>* supportedkeys;
     std::stack<state*>* states;
+    unsigned state_type;
+    bool update_setting;
 };
 
 class state{
@@ -21,7 +31,7 @@ protected:
     statedata& m_statedata;
     sf::Font m_font;
     std::stack<state*>* m_states;
-
+    unsigned m_state_type;
     sf::RenderWindow* m_window;
 
 
@@ -43,6 +53,7 @@ protected:
 
     virtual void initkeybinds() = 0;
     virtual void initfont() = 0;
+    inline void setType (const unsigned &stateType = State_Type::NONE);
 
 public:
     state(statedata&  data);
@@ -50,6 +61,7 @@ public:
 
     inline const bool& getQuit() const; 
     inline const bool getkey();
+    inline const unsigned& getstateType()const; 
 
     inline void endstate();
     inline void pausestate();

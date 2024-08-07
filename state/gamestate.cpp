@@ -149,7 +149,7 @@ inline void gamestate::updateplayerinput(const float &dt) {
   if (sf::Keyboard::isKeyPressed(
           sf::Keyboard::Key(m_keybinds.at("MOVE_DOWN")))) {
     m_player->move(dt, 0.f, 1.f);
-    // m_player->gainexp(10);
+    m_player->gainexp(10);
   }
 }
 

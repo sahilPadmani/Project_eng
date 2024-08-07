@@ -6,14 +6,12 @@
 class state;
 class butten;
 
-
 class settingstate : public state {
 private:
   graphicssettings& m_gfsetting;
 
   sf::Texture m_backgroundtexture;
   sf::RectangleShape m_background;
-
 
   std::map<std::string,gui::butten *> m_butten;
   std::map<std::string,gui::dropdownlist*> m_dropdownlist;

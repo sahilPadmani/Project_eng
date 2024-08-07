@@ -14,6 +14,9 @@ state::state(statedata& data):m_statedata(data){
 
     this->m_keytime = 0.f;
     this->m_keytimemax = 10.f;
+
+    setType(data.state_type);
+
 }
 
 state::~state(){
@@ -32,7 +35,9 @@ inline const bool state::getkey(){
     return true;
 }
 
-
+inline void state::setType (const unsigned &stateType){
+    this->m_state_type = stateType;
+}
 
 inline void state::endstate(){
     m_Quit = true;
@@ -40,6 +45,10 @@ inline void state::endstate(){
 
 inline void state::pausestate(){
     m_pause = true;
+}
+
+inline const unsigned& state::getstateType()const{
+    return this->m_state_type;
 }
 
 inline void state::unpausestate(){

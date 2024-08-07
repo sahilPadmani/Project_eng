@@ -103,14 +103,17 @@ void mainmanustate::updategui() {
   }
 
   if (m_butten["START_GAME"]->ispressed()) {
+    m_statedata.state_type = State_Type::GAME;
     m_states->push(new gamestate(m_statedata));
   }
 
   if (m_butten["SETTINGS"]->ispressed()) {
+    m_statedata.state_type = State_Type::SETTING;
     m_states->push(new settingstate(m_statedata));
   }
 
   if (m_butten["EDITOR"]->ispressed()) {
+    m_statedata.state_type = State_Type::EDITOR;
     m_states->push(new editorstate(m_statedata));
   }
 
@@ -120,6 +123,12 @@ void mainmanustate::updategui() {
 }
 
 inline void mainmanustate::update(const float &dt) {
+
+  if(m_statedata.update_setting){
+    resetgui();
+    m_statedata.update_setting = false;
+  }
+
   updatemousepos();
 
   updateinput(dt);

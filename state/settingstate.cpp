@@ -80,6 +80,7 @@ void settingstate::initgui() {
 }
 
 void settingstate::resetgui() {
+  m_statedata.update_setting = true;
   for (std::pair<const std::string, gui::butten *> &i : m_butten) {
     delete i.second;
   }
