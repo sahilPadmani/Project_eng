@@ -1,5 +1,6 @@
 // #define MEMORY_CHECK
 // #define SHADER_PACK
+// #define FIND
 #include "source/game.cpp"
 
 class game;
