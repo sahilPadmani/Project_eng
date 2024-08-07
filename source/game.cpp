@@ -15,7 +15,7 @@ inline void game::initwindow() {
     ui = sf::Style::Close | sf::Style::Titlebar;
 
   m_window = new sf::RenderWindow(m_gfsetting.resolution, m_gfsetting.title, ui,
-                           m_gfsetting.contextsettings);
+                                  m_gfsetting.contextsettings);
   m_window->setFramerateLimit(m_gfsetting.Framrate);
   m_window->setVerticalSyncEnabled(m_gfsetting.vecSync);
 }
@@ -26,9 +26,13 @@ inline void game::initstatedata() {
   m_statedata.gfsettings = &m_gfsetting;
   m_statedata.supportedkeys = &m_supportedkeys;
   m_statedata.states = &m_states;
+  m_statedata.state_type = State_Type::MAIN_MANU;
+  m_statedata.update_setting = false;
 }
 
-inline void game::initstates() { m_states.push(new mainmanustate(m_statedata)); }
+inline void game::initstates() {
+  m_states.push(new mainmanustate(m_statedata));
+}
 
 void game::initkeys() {
 
@@ -74,6 +78,9 @@ game::~game() {
 // public funciton
 
 void game::run() {
+#ifdef FIND
+  std::cout<<"What game play(BGMI)?.\n";
+#else
   while (m_window->isOpen()) {
     update_dt();
     update();
@@ -85,10 +92,11 @@ void game::run() {
               << " Bytes.\n";
 #endif
   }
+#endif
 }
 
 void game::update() {
-  
+
   update_pollevent();
 
   if (!m_window->hasFocus()) {
@@ -100,7 +108,6 @@ void game::update() {
     m_window->close();
     return;
   }
-
 
   m_states.top()->update(m_dt);
 
@@ -116,7 +123,7 @@ inline void game::render() {
 
   if (m_window->hasFocus()) {
     if (!m_states.empty())
-    m_states.top()->render(m_window);
+      m_states.top()->render(m_window);
   }
   m_window->display();
 }
