@@ -89,10 +89,18 @@ gamestate::gamestate(statedata &data) : state(data) {
 }
 
 gamestate::~gamestate() {
+  this->cleanupgui();
+}
+
+void gamestate::cleanupgui (){
   delete m_map;
   delete m_player;
   delete m_pmanu;
   delete m_playergui;
+}
+
+void gamestate::resetgui (){
+  
 }
 
 void gamestate::updateview() {

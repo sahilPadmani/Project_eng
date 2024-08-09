@@ -113,6 +113,10 @@ editorstate::editorstate(statedata &data)
 }
 
 editorstate::~editorstate() {
+  this->cleanupgui();
+}
+
+void editorstate::cleanupgui (){
   for (std::pair<const std::string, gui::butten *> &i : m_butten) {
     delete i.second;
   }
@@ -122,6 +126,12 @@ editorstate::~editorstate() {
   delete m_map;
 
   delete m_textureselector;
+}
+
+void editorstate::resetgui(){
+  this->cleanupgui();
+
+  this->initgui();
 }
 
 void editorstate::updateinput(const float &dt) {

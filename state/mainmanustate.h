@@ -24,11 +24,13 @@ private:
   inline void initfont();
   void initkeybinds();
   void initgui();
-  void resetgui();
+
+  void cleanupgui();
 
 public:
   mainmanustate(statedata& data);
   virtual ~mainmanustate();
+  void resetgui();
 
   inline void updateinput(const float& dt);
   void updategui();

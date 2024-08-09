@@ -50,9 +50,12 @@ class editorstate : public state{
   inline void initselector();
   inline void inittilemap();
 
+  void cleanupgui();
+
 public:
   editorstate(statedata& data);
   virtual ~editorstate();
+  void resetgui();
 
   inline void updateview(const float& dt);
   void updateinput(const float& dt);

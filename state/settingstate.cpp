@@ -79,22 +79,6 @@ void settingstate::initgui() {
   m_optionstext.setString("Resolution \nFullscreen \nVsync \nAntialiasing \n");
 }
 
-void settingstate::resetgui() {
-  m_statedata.update_setting = true;
-  for (std::pair<const std::string, gui::butten *> &i : m_butten) {
-    delete i.second;
-  }
-  for (std::pair<const std::string, gui::dropdownlist *> &i : m_dropdownlist) {
-    delete i.second;
-  }
-
-  m_butten.clear();
-  m_dropdownlist.clear();
-
-  m_background.setSize(static_cast<sf::Vector2f>(m_window->getSize()));
-  initgui();
-}
-
 settingstate::settingstate(statedata &data)
     : state(data), m_gfsetting(*data.gfsettings) {
   initvar();
@@ -105,12 +89,36 @@ settingstate::settingstate(statedata &data)
 }
 
 settingstate::~settingstate() {
+  this->cleanupgui();
+}
+
+void settingstate::cleanupgui (){
   for (std::pair<const std::string, gui::butten *> &i : m_butten) {
     delete i.second;
   }
   for (std::pair<const std::string, gui::dropdownlist *> &i : m_dropdownlist) {
     delete i.second;
   }
+}
+
+void settingstate::resetgui() {
+  // reset main manu's gui 
+  //{
+    state* selfstate = m_states->top();
+    m_states->pop();
+
+    if(m_states->top()->getstateType() == State_Type::MAIN_MANU)m_states->top()->resetgui();
+
+    m_states->push(selfstate);
+  //}
+  
+  this->cleanupgui();
+
+  m_butten.clear();
+  m_dropdownlist.clear();
+  m_background.setSize(static_cast<sf::Vector2f>(m_window->getSize()));
+  
+  initgui();
 }
 
 inline void settingstate::updateinput(const float &dt) {

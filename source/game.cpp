@@ -27,7 +27,6 @@ inline void game::initstatedata() {
   m_statedata.supportedkeys = &m_supportedkeys;
   m_statedata.states = &m_states;
   m_statedata.state_type = State_Type::MAIN_MANU;
-  m_statedata.update_setting = false;
 }
 
 inline void game::initstates() {

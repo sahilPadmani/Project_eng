@@ -28,11 +28,13 @@ private:
   inline void initfont();
   void initkeybinds();
   void initgui();
-  void resetgui();
+
+  void cleanupgui();
 
 public:
   settingstate(statedata& data);
   virtual ~settingstate();
+  void resetgui();
 
   inline void updateinput(const float &dt);
   void updategui();

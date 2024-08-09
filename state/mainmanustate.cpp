@@ -69,15 +69,7 @@ void mainmanustate::initgui() {
 }
 
 
-void mainmanustate::resetgui (){
-  for (std::pair<const std::string, gui::butten *> &i : m_butten) {
-    delete i.second;
-  }
 
-  m_butten.clear();
-
-  initgui();
-}
 mainmanustate::mainmanustate(statedata &data)
     : state(data), m_gfsetting(*data.gfsettings) {
   initbackground();
@@ -90,9 +82,21 @@ mainmanustate::mainmanustate(statedata &data)
 }
 
 mainmanustate::~mainmanustate() {
+  this->cleanupgui();
+}
+
+void mainmanustate::cleanupgui (){
   for (std::pair<const std::string, gui::butten *> &i : m_butten) {
     delete i.second;
   }
+}
+
+void mainmanustate::resetgui (){
+  this->cleanupgui();
+  
+  m_butten.clear();
+
+  initgui();
 }
 
 inline void mainmanustate::updateinput(const float &dt) {}
@@ -124,10 +128,10 @@ void mainmanustate::updategui() {
 
 inline void mainmanustate::update(const float &dt) {
 
-  if(m_statedata.update_setting){
-    resetgui();
-    m_statedata.update_setting = false;
-  }
+  // if(m_statedata.update_setting){
+  //   resetgui();
+  //   m_statedata.update_setting = false;
+  // }
 
   updatemousepos();
 

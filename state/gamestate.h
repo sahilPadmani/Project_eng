@@ -40,10 +40,13 @@ private:
   inline void initplayer();
   inline void initplayergui();
   inline void inittilemap();
+
+  void cleanupgui();
   
 public:
   gamestate(statedata& data);
   virtual ~gamestate();
+  void resetgui();
 
   void updateinput(const float& dt);
   inline void updateplayerinput(const float& dt);

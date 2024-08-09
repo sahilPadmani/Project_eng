@@ -22,7 +22,6 @@ struct statedata{
     std::map<std::string,int>* supportedkeys;
     std::stack<state*>* states;
     unsigned state_type;
-    bool update_setting;
 };
 
 class state{
@@ -33,7 +32,6 @@ protected:
     std::stack<state*>* m_states;
     unsigned m_state_type;
     sf::RenderWindow* m_window;
-
 
     float m_gridsize;
     std::map<std::string,int>* m_supportedkeys;
@@ -55,9 +53,12 @@ protected:
     virtual void initfont() = 0;
     inline void setType (const unsigned &stateType = State_Type::NONE);
 
+    virtual void cleanupgui() = 0;
+
 public:
     state(statedata&  data);
     virtual ~state();
+    virtual void resetgui() = 0;
 
     inline const bool& getQuit() const; 
     inline const bool getkey();
