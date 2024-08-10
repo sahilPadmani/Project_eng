@@ -279,7 +279,7 @@ inline void tilemap::fourtilecollision(entity &entity,
   }
 
   // right collision
-  if (playerbound.left < wallbound.left &&
+  else if (playerbound.left < wallbound.left &&
       playerbound.left + playerbound.width < wallbound.left + wallbound.width &&
       playerbound.top < wallbound.top + wallbound.height &&
       playerbound.top + playerbound.height > wallbound.top) {
